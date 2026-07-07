@@ -11,6 +11,7 @@ class Settings(BaseSettings):
 
     MONGODB_URL: str = Field(default="mongodb://localhost:27017", validation_alias="MONGODB_URL")
     DATABASE_NAME: str = Field(default="mediclear", validation_alias="DATABASE_NAME")
+    FRONTEND_URL: str = Field(default="http://localhost:5173", validation_alias="FRONTEND_URL")
 
     # Email & SMS API Mock Options
     MOCK_NOTIFICATIONS: bool = True

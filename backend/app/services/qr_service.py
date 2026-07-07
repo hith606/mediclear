@@ -3,13 +3,18 @@ import io
 import base64
 from PIL import Image
 
+from app.core.config import settings
+
 class QRService:
     @staticmethod
-    def generate_qr_base64(serial_number: str, base_url: str = "http://localhost:5173/verify") -> str:
+    def generate_qr_base64(serial_number: str, base_url: str = None) -> str:
         """
         Generates a QR code for a given serial number and verification URL,
         returning it as a base64 encoded PNG string.
         """
+        if not base_url:
+            base_url = f"{settings.FRONTEND_URL.rstrip('/')}/verify"
+            
         # Create verification link
         verification_link = f"{base_url}?serial={serial_number}"
         
@@ -33,10 +38,13 @@ class QRService:
         return f"data:image/png;base64,{img_str}"
 
     @staticmethod
-    def generate_qr_bytes(serial_number: str, base_url: str = "http://localhost:5173/verify") -> bytes:
+    def generate_qr_bytes(serial_number: str, base_url: str = None) -> bytes:
         """
         Generates raw PNG bytes of the QR code.
         """
+        if not base_url:
+            base_url = f"{settings.FRONTEND_URL.rstrip('/')}/verify"
+            
         verification_link = f"{base_url}?serial={serial_number}"
         
         qr = qrcode.QRCode(
