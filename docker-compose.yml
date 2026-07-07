@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  db:
+    image: mongo:latest
+    container_name: mediclear-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - mediclear-network
+
+  backend:
+    build: ./backend
+    container_name: mediclear-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGODB_URL=mongodb://db:27017
+      - DATABASE_NAME=mediclear
+      - SECRET_KEY=supersecretkeythatnobodywillguess1234567890
+    depends_on:
+      - db
+    networks:
+      - mediclear-network
+
+  frontend:
+    build: ./frontend
+    container_name: mediclear-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - mediclear-network
+
+volumes:
+  mongo_data:
+
+networks:
+  mediclear-network:
+    driver: bridge

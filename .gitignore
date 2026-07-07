@@ -1,0 +1,65 @@
+# ===========================
+# Python / Backend
+# ===========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+ENV/
+
+# Environment variables - NEVER commit these!
+.env
+.env.*
+!.env.example
+
+# ===========================
+# Node.js / Frontend
+# ===========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Build output
+frontend/dist/
+frontend/build/
+frontend/.next/
+
+# ===========================
+# Docker
+# ===========================
+# Keep docker-compose.yml but ignore overrides with secrets
+docker-compose.override.yml
+
+# ===========================
+# IDE / Editor
+# ===========================
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ===========================
+# Database / Uploads
+# ===========================
+*.db
+*.sqlite3
+uploads/
+media/
+
+# ===========================
+# Logs
+# ===========================
+*.log
+logs/
