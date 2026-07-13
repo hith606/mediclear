@@ -31,29 +31,6 @@ const TRANSLATIONS = {
     submit_fb: "Submit Feedback",
     usage: "Prescribed Use / Indications"
   },
-  es: {
-    title: "Portal Público de Verificación de Medicamentos",
-    subtitle: "Verifique al instante la autenticidad de los medicamentos y las órdenes de retirada.",
-    verify_btn: "Verificar Medicamento",
-    enter_serial: "Ingrese el número de serialización único...",
-    scan_sim: "Simular Escáner de Cámara",
-    safety_eval: "Evaluación de Seguridad:",
-    composition: "Detalles de la Composición del Medicamento:",
-    generic: "Fórmula Genérica",
-    sku: "SKU del Sistema",
-    strength: "Concentración",
-    expiry: "Fecha de Caducidad",
-    mfg: "Fabricado por",
-    report_btn: "Presentar Informe de Falsificación",
-    reporter_details: "Coordenadas y Detalles del Informante:",
-    desc: "Describa la anomalía (ej. sello roto, pastillas de otro color)",
-    location: "Ubicación del Escaneo (Ciudad, Clínica)",
-    submit_rep: "Enviar Alerta de Incidente",
-    feedback_title: "¿Cómo fue su experiencia?",
-    rating: "Calificar la Precisión de la Verificación",
-    submit_fb: "Enviar Comentarios",
-    usage: "Uso Prescrito / Indicaciones"
-  },
   hi: {
     title: "सार्वजनिक औषधि सत्यापन पोर्टल",
     subtitle: "दवा की प्रामाणिकता, समाप्ति समयरेखा और रिकॉल आदेशों की तुरंत जांच करें।",
@@ -62,7 +39,7 @@ const TRANSLATIONS = {
     scan_sim: "कैमरा स्कैनर सिम्युलेट करें",
     safety_eval: "सुरक्षा मूल्यांकन:",
     composition: "दवा संरचना विवरण:",
-    generic: "जेनेरिक फॉर्मूला",
+    generic: "जेनेरिक फार्मूला",
     sku: "सिस्टम SKU",
     strength: "शक्ति",
     expiry: "समाप्ति तिथि",
@@ -70,35 +47,35 @@ const TRANSLATIONS = {
     report_btn: "संदिग्ध नकली दवा की रिपोर्ट दर्ज करें",
     reporter_details: "रिपोर्टर स्थान और विवरण:",
     desc: "विसंगति का वर्णन करें (जैसे, टूटी हुई सील, भिन्न रंग)",
-    location: "स्कैन स्थान (शहर, क्लिनिक)",
+    location: "स्कैन स्थान (शहर, क्लिनಿಕ)",
     submit_rep: "घटना चेतावनी भेजें",
-    feedback_title: "आपका अनुभव कैसा रहा?",
+    feedback_title: "भारत में आपका अनुभव कैसा रहा?",
     rating: "सत्यापन सटीकता का मूल्यांकन करें",
     submit_fb: "प्रतिक्रिया सबमिट करें",
     usage: "निर्धारित उपयोग / संकेत"
   },
-  de: {
-    title: "Öffentliches Portal zur Arzneimittelüberprüfung",
-    subtitle: "Überprüfen Sie sofort die Echtheit von Medikamenten, Ablaufdaten und Rückrufen.",
-    verify_btn: "Medikament überprüfen",
-    enter_serial: "Geben Sie die eindeutige Seriennummer ein...",
-    scan_sim: "Kamerascanner simulieren",
-    safety_eval: "Sicherheitsbewertung:",
-    composition: "Details zur Wirkstoffzusammensetzung:",
-    generic: "Generische Formel",
-    sku: "System-SKU",
-    strength: "Stärke",
-    expiry: "Verfallsdatum",
-    mfg: "Hergestellt von",
-    report_btn: "Verdacht auf Fälschung melden",
-    reporter_details: "Koordinaten und Details des Meldenden:",
-    desc: "Anomalie beschreiben (z. B. beschädigtes Siegel, andere Pillenfarbe)",
-    location: "Scan-Ort (Stadt, Klinik)",
-    submit_rep: "Zwischenfall melden",
-    feedback_title: "Wie war Ihre Erfahrung?",
-    rating: "Genauigkeit der Überprüfung bewerten",
-    submit_fb: "Feedback abschicken",
-    usage: "Vorgeschriebene Verwendung / Indikationen"
+  kn: {
+    title: "ಸಾರ್ವಜನಿಕ ಔಷಧ ಪರಿಶೀಲನಾ ಪೋರ್ಟಲ್",
+    subtitle: "ಔಷಧದ ದೃಢೀಕರಣ, ಮುಕ್ತಾಯ ಸಮಯ ಮತ್ತು ಮರುಸ್ಥಾಪನೆ ಆದೇಶಗಳನ್ನು ತಕ್ಷಣವೇ ಪರಿಶೀಲಿಸಿ.",
+    verify_btn: "ಔಷಧವನ್ನು ಪರಿಶೀಲಿಸಿ",
+    enter_serial: "ವಿಶಿಷ್ಟ ಸರಣಿ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ...",
+    scan_sim: "ಕ್ಯಾಮೆರಾ ಸ್ಕ್ಯಾನರ್ ಅನ್ನು ಸಿಮ್ಯುಲೇಟ್ ಮಾಡಿ",
+    safety_eval: "ಸುರಕ್ಷತಾ ಮೌಲ್ಯಮಾಪನ:",
+    composition: "ಔಷಧ ಸಂಯೋಜನೆ ವಿವರಗಳು:",
+    generic: "ಜೆನೆರಿಕ್ ಫಾರ್ಮುಲಾ",
+    sku: "ಸಿಸ್ಟಮ್ SKU",
+    strength: "ಸಾಮರ್ಥ್ಯ",
+    expiry: "ಮುಕ್ತಾಯ ದಿನಾಂಕ",
+    mfg: "ತಯಾರಕರು",
+    report_btn: "ಶಂಕಿತ ನಕಲಿ ವರದಿ ದಾಖಲಿಸಿ",
+    reporter_details: "ವರದಿಗಾರರ ವಿವರಗಳು:",
+    desc: "ವ್ಯತ್ಯಾಸಗಳನ್ನು ವಿವರಿಸಿ (ಉದಾಹರಣೆಗೆ, ಬಣ್ಣ ಹೊಂದಾಣಿಕೆಯಾಗದಿರುವುದು, ಹರಿದ ಮುದ್ರೆ)",
+    location: "ಸ್ಕ್ಯಾನ್ ಸ್ಥಳ (ನಗರ, ಕ್ಲಿನಿಕ್)",
+    submit_rep: "ಘಟನೆಯ ಎಚ್ಚರಿಕೆಯನ್ನು ಕಳುಹಿಸಿ",
+    feedback_title: "ನಿಮ್ಮ ಅನುಭವ ಹೇಗಿತ್ತು?",
+    rating: "ಪರಿಶೀಲನೆಯ ನಿಖರತೆಯನ್ನು ರೇಟ್ ಮಾಡಿ",
+    submit_fb: "ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಸಲ್ಲಿಸಿ",
+    usage: "ಶಿಫಾರಸು ಮಾಡಿದ ಬಳಕೆ / ಸೂಚನೆಗಳು"
   }
 };
 
@@ -433,9 +410,8 @@ const ConsumerPortal = () => {
               className="bg-transparent text-xs font-semibold text-slate-600 focus:outline-none cursor-pointer"
             >
               <option value="en">English (EN)</option>
-              <option value="es">Español (ES)</option>
               <option value="hi">हिन्दी (HI)</option>
-              <option value="de">Deutsch (DE)</option>
+              <option value="kn">ಕನ್ನಡ (KN)</option>
             </select>
           </div>
           
