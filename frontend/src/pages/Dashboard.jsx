@@ -353,31 +353,11 @@ const Dashboard = () => {
       {isConsumer ? (
         <div className="bg-white rounded-2xl border border-slate-200/70 shadow-sm overflow-hidden mt-6">
           {/* Table Panel Header */}
-          <div className="px-6 py-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white">
+          <div className="px-6 py-5 border-b border-slate-100 bg-white">
             <h2 className="font-bold text-slate-800 flex items-center gap-2.5 text-base">
               <Award size={18} className="text-blue-600" />
               Audit ledger updates (Activity Log)
             </h2>
-            <div className="flex items-center gap-3">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
-                <input
-                  type="text"
-                  value={filterQuery}
-                  onChange={(e) => setFilterQuery(e.target.value)}
-                  placeholder="Filter logs..."
-                  className="pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-sm text-slate-800 bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all w-full sm:w-56"
-                />
-              </div>
-              <button className="flex items-center gap-2 px-4 py-2 text-sm font-semibold border border-slate-200 rounded-xl text-slate-700 bg-white hover:bg-slate-50 transition-colors">
-                <Filter size={14} className="text-slate-500" />
-                <span>Filter</span>
-              </button>
-              <button className="flex items-center gap-2 px-4 py-2 text-sm font-semibold border border-slate-200 rounded-xl text-slate-700 bg-white hover:bg-slate-50 transition-colors">
-                <Download size={14} className="text-slate-500" />
-                <span>Export</span>
-              </button>
-            </div>
           </div>
 
           {/* Table Content */}

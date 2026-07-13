@@ -234,14 +234,9 @@ const Layout = ({ children }) => {
 
           <div className="flex items-center gap-4">
             {isConsumer ? (
-              <div className="flex items-center gap-4">
-                <button className="p-1.5 text-slate-400 hover:text-slate-600 transition-colors">
-                  <Bell size={18} />
-                </button>
-                <div className="h-6 w-px bg-slate-200"></div>
-                <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 rounded-lg transition-colors shadow-sm shadow-blue-500/10">
-                  Emergency Restock
-                </button>
+              <div className="text-right">
+                <span className="text-xs font-medium text-slate-400">Identity:</span>
+                <span className="text-xs font-semibold text-slate-600 ml-1.5">{user.username}</span>
               </div>
             ) : (
               <div className="text-right">
