@@ -192,7 +192,7 @@ const Login = () => {
       {/* Footer Bar */}
       <footer className="border-t border-slate-200/80 px-12 flex flex-col md:flex-row items-center justify-between bg-white text-slate-500 text-xs py-4 gap-2 z-20">
         <div>
-          © 2024 Medicare Pharmaceutical Supply Chain Network. All rights reserved. Secure Enterprise Portal.
+          © 2026 Medicare Pharmaceutical Supply Chain Network. All rights reserved. Secure Enterprise Portal.
         </div>
         <div className="flex items-center gap-4">
           <a href="#" className="hover:text-blue-600 transition-colors">Privacy Policy</a>

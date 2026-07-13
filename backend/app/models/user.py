@@ -22,6 +22,7 @@ class UserBase(BaseModel):
     full_name: str
     organization: Optional[str] = None
     phone_number: Optional[str] = None
+    profile_picture: Optional[str] = None
 
 class UserCreate(UserBase):
     password: str = Field(..., min_length=6)
@@ -31,6 +32,7 @@ class UserUpdate(BaseModel):
     organization: Optional[str] = None
     phone_number: Optional[str] = None
     password: Optional[str] = None
+    profile_picture: Optional[str] = None
 
 class UserResponse(UserBase):
     id: str = Field(..., alias="_id")

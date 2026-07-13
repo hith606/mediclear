@@ -197,7 +197,7 @@ async def get_me(user: dict = Depends(get_current_user)):
 
 # Update profile
 @router.put("/me", response_model=UserResponse)
-async def update_me(user_update: UserUpdate, user: dict = Depends(get_approved_user)):
+async def update_me(user_update: UserUpdate, user: dict = Depends(get_current_user)):
     db = get_database()
     update_data = user_update.model_dump(exclude_unset=True)
     

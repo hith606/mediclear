@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { api } from '../services/api';
 import { 
   ShieldCheck, LayoutDashboard, Database, QrCode, 
   Truck, HelpCircle, FileText, AlertTriangle, 
@@ -23,6 +24,31 @@ const Layout = ({ children }) => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     navigate('/login');
+  };
+
+  const handlePhotoUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    // Check file size (limit to 1.5MB for stable Base64 storage)
+    if (file.size > 1.5 * 1024 * 1024) {
+      alert("Image is too large. Please select a photo smaller than 1.5MB.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = async () => {
+      const base64String = reader.result;
+      try {
+        await api.auth.updateProfile({ profile_picture: base64String });
+        const updatedUser = { ...user, profile_picture: base64String };
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+        setUser(updatedUser);
+      } catch (err) {
+        alert("Failed to update profile picture: " + (err.response?.data?.detail || err.message));
+      }
+    };
   };
 
   if (!user) return null;
@@ -155,15 +181,42 @@ const Layout = ({ children }) => {
           <div className={`flex items-center gap-3 px-3 py-2.5 rounded-xl ${
             isConsumer ? 'bg-slate-50 border border-slate-100' : ''
           }`}>
-            {isConsumer ? (
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 text-slate-400 border border-slate-200 flex-shrink-0">
-                <User size={18} />
+            <div 
+              className="relative group cursor-pointer flex-shrink-0" 
+              onClick={() => document.getElementById('avatar-upload').click()}
+              title="Click to update profile photo"
+            >
+              {user.profile_picture ? (
+                <img 
+                  src={user.profile_picture} 
+                  alt="Avatar" 
+                  className={`rounded-full object-cover border ${
+                    isConsumer ? 'w-10 h-10 border-slate-200' : 'w-9 h-9 border-gray-700'
+                  }`}
+                />
+              ) : (
+                isConsumer ? (
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 text-slate-400 border border-slate-200">
+                    <User size={18} />
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-[#1e293b] text-primary-400 border border-gray-700">
+                    <User size={16} />
+                  </div>
+                )
+              )}
+              {/* Camera Hover overlay */}
+              <div className="absolute inset-0 bg-black/40 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <span className="text-[8px] text-white font-bold font-sans uppercase">Edit</span>
               </div>
-            ) : (
-              <div className="flex items-center justify-center w-9 h-9 rounded-full bg-[#1e293b] text-primary-400 border border-gray-700">
-                <User size={16} />
-              </div>
-            )}
+              <input 
+                type="file" 
+                id="avatar-upload" 
+                className="hidden" 
+                accept="image/*" 
+                onChange={handlePhotoUpload} 
+              />
+            </div>
             <div className="flex-1 min-w-0">
               <p className={`text-xs font-bold truncate ${isConsumer ? 'text-slate-800' : 'text-white'}`}>{user.full_name}</p>
               <p className={`text-[10px] font-medium truncate ${isConsumer ? 'text-slate-500' : 'text-gray-400'}`}>Admin</p>
