@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { api } from '../services/api';
 import { 
   Users, Layers, AlertCircle, TrendingUp, Check, X,
-  Clock, ShieldAlert, Award, FileText, Download, QrCode
+  Clock, ShieldAlert, Award, FileText, Download, QrCode,
+  ShieldCheck, Search, Filter, Gauge, ClipboardCheck
 } from 'lucide-react';
 
 const Dashboard = () => {
@@ -15,6 +16,7 @@ const Dashboard = () => {
   const [shipments, setShipments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(false);
+  const [filterQuery, setFilterQuery] = useState('');
 
   useEffect(() => {
     const userString = localStorage.getItem('user');
@@ -110,12 +112,39 @@ const Dashboard = () => {
     );
   }
 
+  const isConsumer = user?.role === 'Consumer';
+
+  const filteredLogs = activityLogs.filter(l => 
+    l.username?.toLowerCase().includes(filterQuery.toLowerCase()) ||
+    l.role?.toLowerCase().includes(filterQuery.toLowerCase()) ||
+    l.action?.toLowerCase().includes(filterQuery.toLowerCase()) ||
+    l.details?.toLowerCase().includes(filterQuery.toLowerCase())
+  );
+
+  const getActionChipClass = (action) => {
+    const act = action?.toUpperCase() || '';
+    if (act.includes('LOGIN')) {
+      return 'bg-blue-50 text-blue-600 border border-blue-100 px-2 py-0.5 rounded text-[10px] font-bold tracking-wider font-sans';
+    }
+    if (act.includes('HANDSHAKE') || act.includes('INTEGRITY') || act.includes('CHECK') || act.includes('RECEIVE')) {
+      return 'bg-emerald-50 text-emerald-600 border border-emerald-100 px-2 py-0.5 rounded text-[10px] font-bold tracking-wider font-sans';
+    }
+    if (act.includes('UPDATE') || act.includes('CREATE') || act.includes('SHIP')) {
+      return 'bg-amber-50 text-amber-700 border border-amber-100 px-2 py-0.5 rounded text-[10px] font-bold tracking-wider font-sans';
+    }
+    return 'bg-slate-50 text-slate-600 border border-slate-100 px-2 py-0.5 rounded text-[10px] font-bold tracking-wider font-sans';
+  };
+
   return (
     <div className="space-y-8">
       {/* Welcome Header */}
       <div>
-        <h1 className="text-3xl font-extrabold text-white font-sans">Operational Control Panel</h1>
-        <p className="text-sm text-gray-400 mt-1">Hello, {user.full_name} ({user.role}) • Node status active.</p>
+        <h1 className={`text-2xl font-extrabold font-sans tracking-tight ${isConsumer ? 'text-slate-800' : 'text-white'}`}>
+          Operational Control Panel
+        </h1>
+        <p className={`text-sm mt-1 ${isConsumer ? 'text-slate-500' : 'text-gray-400'}`}>
+          Hello, {user.full_name} ({user.role}) • {isConsumer ? 'Node status active and logging in real-time.' : 'Node status active.'}
+        </p>
       </div>
 
       {/* 2. REGULATOR VIEW */}
@@ -217,7 +246,7 @@ const Dashboard = () => {
               <Layers size={18} className="text-primary-400" />
               Registered Manufacturing Batches
             </h2>
-            <Link to="/batches" className="text-xs font-semibold px-3 py-1.5 bg-primary-500 hover:bg-primary-600 text-white rounded-lg transition-colors">
+            <Link to="/batches" className="text-xs font-semibold px-3 py-1.5 bg-primary-505 hover:bg-primary-600 text-white rounded-lg transition-colors">
               + New Batch
             </Link>
           </div>
@@ -320,41 +349,181 @@ const Dashboard = () => {
         </div>
       )}
 
-      {/* Activity Logs (Always Visible) */}
-      <div className="rounded-2xl glass-panel border border-[#1e293b] overflow-hidden">
-        <div className="px-6 py-4 border-b border-[#1e293b] bg-[#151c2c]/10">
-          <h2 className="font-bold text-white flex items-center gap-2">
-            <Award size={18} className="text-primary-400" />
-            Audit ledger updates (Activity Log)
-          </h2>
-        </div>
-        {activityLogs.length === 0 ? (
-          <div className="p-8 text-center text-gray-500 text-sm">No activities logged yet.</div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm text-gray-400">
-              <thead className="bg-[#151c2c] text-xs font-semibold text-gray-300 border-b border-[#1e293b] uppercase">
-                <tr>
-                  <th className="px-6 py-3.5">Operator</th>
-                  <th className="px-6 py-3.5">Action Code</th>
-                  <th className="px-6 py-3.5">Details</th>
-                  <th className="px-6 py-3.5 text-right">Timestamp</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#1e293b] font-mono text-xs">
-                {activityLogs.slice(0, 10).map((l) => (
-                  <tr key={l._id} className="hover:bg-[#151c2c]/20">
-                    <td className="px-6 py-3 font-semibold text-white">{l.username} ({l.role})</td>
-                    <td className="px-6 py-3 text-primary-400">{l.action}</td>
-                    <td className="px-6 py-3 text-gray-300 max-w-sm truncate">{l.details}</td>
-                    <td className="px-6 py-3 text-right text-gray-500">{new Date(l.timestamp).toLocaleString()}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      {/* 5. CONSUMER VIEW (MOCKUP STYLING CARDS) */}
+      {isConsumer && (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Card 1: Active Ledger Verification */}
+          <div className="p-6 bg-white rounded-2xl border border-slate-200/70 flex flex-col justify-between relative shadow-sm min-h-[160px]">
+            <div className="flex justify-between items-start w-full">
+              <div className="p-3 bg-blue-50 text-blue-600 rounded-xl">
+                <ShieldCheck size={22} />
+              </div>
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-[#bbf7d0] text-[#15803d]">
+                HEALTHY
+              </span>
+            </div>
+            <div className="mt-4">
+              <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                Active Ledger Verification
+              </p>
+              <div className="flex items-baseline gap-2 mt-1">
+                <h3 className="text-2xl font-bold text-slate-800">99.98%</h3>
+                <span className="text-xs font-semibold text-emerald-600">+0.02%</span>
+              </div>
+            </div>
           </div>
-        )}
-      </div>
+
+          {/* Card 2: Pending Audits */}
+          <div className="p-6 bg-white rounded-2xl border border-slate-200/70 flex flex-col justify-between relative shadow-sm min-h-[160px]">
+            <div className="flex justify-between items-start w-full">
+              <div className="p-3 bg-amber-50 text-amber-600 rounded-xl">
+                <ClipboardCheck size={22} />
+              </div>
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-[#fed7aa] text-[#c2410c]">
+                PENDING
+              </span>
+            </div>
+            <div className="mt-4">
+              <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                Pending Audits
+              </p>
+              <div className="flex items-baseline gap-1.5 mt-1">
+                <h3 className="text-2xl font-bold text-slate-800">12</h3>
+                <span className="text-xs font-medium text-slate-500">Across 3 Regions</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3: Node Latency */}
+          <div className="p-6 bg-white rounded-2xl border border-slate-200/70 flex flex-col justify-between relative shadow-sm min-h-[160px]">
+            <div className="flex justify-between items-start w-full">
+              <div className="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
+                <Gauge size={22} />
+              </div>
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-[#ccfbf1] text-[#0f766e]">
+                OPTIMAL
+              </span>
+            </div>
+            <div className="mt-4">
+              <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                Node Latency
+              </p>
+              <div className="flex items-baseline gap-1.5 mt-1">
+                <h3 className="text-2xl font-bold text-slate-800">14ms</h3>
+                <span className="text-xs font-medium text-slate-500">Global Avg</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Activity Logs (Dynamic Theme Toggled) */}
+      {isConsumer ? (
+        <div className="bg-white rounded-2xl border border-slate-200/70 shadow-sm overflow-hidden mt-6">
+          {/* Table Panel Header */}
+          <div className="px-6 py-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white">
+            <h2 className="font-bold text-slate-800 flex items-center gap-2.5 text-base">
+              <Award size={18} className="text-blue-600" />
+              Audit ledger updates (Activity Log)
+            </h2>
+            <div className="flex items-center gap-3">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+                <input
+                  type="text"
+                  value={filterQuery}
+                  onChange={(e) => setFilterQuery(e.target.value)}
+                  placeholder="Filter logs..."
+                  className="pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-sm text-slate-800 bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all w-full sm:w-56"
+                />
+              </div>
+              <button className="flex items-center gap-2 px-4 py-2 text-sm font-semibold border border-slate-200 rounded-xl text-slate-700 bg-white hover:bg-slate-50 transition-colors">
+                <Filter size={14} className="text-slate-500" />
+                <span>Filter</span>
+              </button>
+              <button className="flex items-center gap-2 px-4 py-2 text-sm font-semibold border border-slate-200 rounded-xl text-slate-700 bg-white hover:bg-slate-50 transition-colors">
+                <Download size={14} className="text-slate-500" />
+                <span>Export</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Table Content */}
+          {filteredLogs.length === 0 ? (
+            <div className="p-8 text-center text-slate-400 text-sm">No activity logs found.</div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-sm">
+                <thead className="bg-[#f8fafc] text-[11px] font-extrabold text-slate-400 border-b border-slate-100 uppercase tracking-wider">
+                  <tr>
+                    <th className="px-6 py-4">Operator</th>
+                    <th className="px-6 py-4">Action Code</th>
+                    <th className="px-6 py-4">Details</th>
+                    <th className="px-6 py-4 text-right">Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 font-sans text-xs">
+                  {filteredLogs.slice(0, 10).map((l) => (
+                    <tr key={l._id} className="hover:bg-slate-50/50 transition-colors bg-white">
+                      <td className="px-6 py-4 font-bold text-slate-800">{l.username} ({l.role})</td>
+                      <td className="px-6 py-4">
+                        <span className={getActionChipClass(l.action)}>{l.action}</span>
+                      </td>
+                      <td className="px-6 py-4 text-slate-600 max-w-sm truncate">{l.details}</td>
+                      <td className="px-6 py-4 text-right text-slate-500 font-medium">
+                        {new Date(l.timestamp).toLocaleString(undefined, {
+                          year: 'numeric',
+                          month: 'numeric',
+                          day: 'numeric',
+                          hour: 'numeric',
+                          minute: '2-digit',
+                          second: '2-digit',
+                          hour12: true
+                        })}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="rounded-2xl glass-panel border border-[#1e293b] overflow-hidden">
+          <div className="px-6 py-4 border-b border-[#1e293b] bg-[#151c2c]/10">
+            <h2 className="font-bold text-white flex items-center gap-2">
+              <Award size={18} className="text-primary-400" />
+              Audit ledger updates (Activity Log)
+            </h2>
+          </div>
+          {activityLogs.length === 0 ? (
+            <div className="p-8 text-center text-gray-500 text-sm">No activities logged yet.</div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-sm text-gray-400">
+                <thead className="bg-[#151c2c] text-xs font-semibold text-gray-300 border-b border-[#1e293b] uppercase">
+                  <tr>
+                    <th className="px-6 py-3.5">Operator</th>
+                    <th className="px-6 py-3.5">Action Code</th>
+                    <th className="px-6 py-3.5">Details</th>
+                    <th className="px-6 py-3.5 text-right">Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#1e293b] font-mono text-xs">
+                  {activityLogs.slice(0, 10).map((l) => (
+                    <tr key={l._id} className="hover:bg-[#151c2c]/20">
+                      <td className="px-6 py-3 font-semibold text-white">{l.username} ({l.role})</td>
+                      <td className="px-6 py-3 text-primary-400">{l.action}</td>
+                      <td className="px-6 py-3 text-gray-300 max-w-sm truncate">{l.details}</td>
+                      <td className="px-6 py-3 text-right text-gray-500">{new Date(l.timestamp).toLocaleString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
