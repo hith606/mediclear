@@ -80,7 +80,7 @@ def seed_database():
             "username": "consumer",
             "email": "consumer@gmail.com",
             "role": UserRole.CONSUMER.value,
-            "full_name": "John Doe",
+            "full_name": "Kiran Kumar",
             "organization": None,
             "phone_number": "+19998887775",
             "hashed_password": hashed_password,
