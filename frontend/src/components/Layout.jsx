@@ -210,10 +210,7 @@ const Layout = ({ children }) => {
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                   Node Active & Verified
                 </span>
-                <span className="text-xs text-slate-500 font-medium flex items-center gap-1.5 ml-2">
-                  <Radio size={14} className="text-slate-400" />
-                  Live Environment
-                </span>
+
               </>
             ) : (
               <>
