@@ -10,7 +10,6 @@ const Layout = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [user, setUser] = useState(null);
-  const isLightTheme = location.pathname === '/dashboard';
 
   useEffect(() => {
     const userString = localStorage.getItem('user');
@@ -142,40 +141,24 @@ const Layout = ({ children }) => {
 
       {/* Main Content Area */}
       <div className="flex flex-col flex-1 overflow-hidden">
-         {/* Top Navbar */}
-        <header className={`flex items-center justify-between px-6 py-4 border-b transition-all duration-200 ${
-          isLightTheme 
-            ? 'bg-white border-slate-100 text-slate-800 shadow-[0_1px_3px_rgba(0,0,0,0.01)]' 
-            : 'glass-panel border-[#1e293b] text-gray-100'
-        }`}>
+        {/* Top Navbar */}
+        <header className="flex items-center justify-between px-6 py-4 glass-panel border-b border-[#1e293b]">
           <div className="flex items-center gap-3 md:hidden">
             <ShieldCheck size={28} className="text-primary-500" />
-            <span className={`font-bold text-lg ${isLightTheme ? 'text-slate-800' : 'text-white'}`}>MediClear</span>
+            <span className="font-bold text-white text-lg">MediClear</span>
           </div>
 
           <div className="hidden md:flex items-center gap-2">
-            <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${
-              isLightTheme 
-                ? 'bg-slate-50 border-slate-200 text-slate-600' 
-                : 'bg-slate-800 border-slate-700 text-slate-300'
-            }`}>
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
               Environment: Sandbox Dev
             </span>
             {isApproved ? (
-              <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border flex items-center gap-1.5 ${
-                isLightTheme
-                  ? 'bg-emerald-50 border-emerald-100 text-emerald-700'
-                  : 'bg-green-500/10 border-green-500/20 text-green-400'
-              }`}>
+              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/20 flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
                 Node Active & Verified
               </span>
             ) : (
-              <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border flex items-center gap-1.5 ${
-                isLightTheme
-                  ? 'bg-amber-50 border-amber-100 text-amber-700'
-                  : 'bg-yellow-500/10 border-yellow-500/20 text-yellow-400'
-              }`}>
+              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse"></span>
                 Awaiting Regulatory Clearance
               </span>
@@ -184,14 +167,14 @@ const Layout = ({ children }) => {
 
           <div className="flex items-center gap-4">
             <div className="text-right">
-              <span className={`text-xs font-medium ${isLightTheme ? 'text-slate-400' : 'text-gray-400'}`}>Identity:</span>
-              <span className={`text-xs font-semibold ml-1.5 ${isLightTheme ? 'text-slate-800' : 'text-white'}`}>{user.username}</span>
+              <span className="text-xs font-medium text-gray-400">Identity:</span>
+              <span className="text-xs font-semibold text-white ml-1.5">{user.username}</span>
             </div>
           </div>
         </header>
 
         {/* Dashboard Viewport */}
-        <main className={`flex-1 overflow-y-auto p-6 md:p-8 transition-colors duration-200 ${isLightTheme ? 'bg-[#f8fafc]' : ''}`}>
+        <main className="flex-1 overflow-y-auto p-6 md:p-8">
           {children}
         </main>
       </div>
