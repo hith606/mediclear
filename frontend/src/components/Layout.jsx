@@ -156,11 +156,9 @@ const Layout = ({ children }) => {
             isConsumer ? 'bg-slate-50 border border-slate-100' : ''
           }`}>
             {isConsumer ? (
-              <img 
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=256&auto=format&fit=crop" 
-                alt="Avatar" 
-                className="w-10 h-10 rounded-full object-cover border border-slate-200"
-              />
+              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 text-slate-400 border border-slate-200 flex-shrink-0">
+                <User size={18} />
+              </div>
             ) : (
               <div className="flex items-center justify-center w-9 h-9 rounded-full bg-[#1e293b] text-primary-400 border border-gray-700">
                 <User size={16} />
