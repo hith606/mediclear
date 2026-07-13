@@ -80,11 +80,7 @@ const Layout = ({ children }) => {
   // Custom nav items for consumer theme
   const consumerNavItems = [
     { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
-    { name: 'Inventory', path: '/inventory', icon: Database },
-    { name: 'Verification', path: '/verify', icon: ShieldCheck },
-    { name: 'Audit Ledger', path: '/audit-ledger', icon: FileText },
-    { name: 'Network', path: '/network', icon: Network },
-    { name: 'Settings', path: '/settings', icon: Settings },
+    { name: 'Verification', path: '/verify', icon: ShieldCheck }
   ];
 
   const filteredNavItems = isConsumer 
